@@ -56,7 +56,7 @@ skewness(results$prog2)
 
 The subjects arch 1, prog 1, and prog 2 tend to be left-skewed. This implies that their scores tend to be concentrated toward the higher end (or right side) of the distribution, with some lower scores extending the tail toward the left.
 
-Meanwhile prog 2 tends to be concentrated towards the lower end, with higher scores extends to the tail to the right.
+Meanwhile arch 2 tends to be concentrated towards the lower end, with higher scores extends to the tail to the right.
 
 ## This is the function for the APPROXIMATE Skew formula by Pearson
 

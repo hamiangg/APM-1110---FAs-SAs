@@ -1,0 +1,116 @@
+---
+title: "APM 1110 FA 1"
+author: "Cainglet, Manalaysay"
+output: pdf_document
+---
+https://github.com/hamiangg/APM-1110---FAs-SAs
+
+# 1
+
+```{r}
+library(readxl)
+
+results <- read_excel("results.xlsx") 
+```
+
+This is the skewness program from Equation 2.1
+
+```{r}
+skewness <- function(x) {
+  xbar <- mean(x, na.rm = TRUE)
+  sum2 <- sum((x - xbar)^2, na.rm = TRUE)
+  sum3 <- sum((x - xbar)^3, na.rm = TRUE)
+  (sqrt(length(x)) * sum3) / (sum2^(1.5))
+}
+```
+
+Since we import data from excel into RStudio, R encounters missing values that returns “NA”. So, we used na.rm=TRUE to ignore NA values.
+
+## If we check,
+
+```{r}
+str(results)
+```
+
+The data are read as characters, so we force them to be numeric.
+
+```{r}
+results$arch1 <- as.numeric(results$arch1)
+results$prog1 <- as.numeric(results$prog1)
+results$arch2 <- as.numeric(results$arch2)
+results$prog2 <- as.numeric(results$prog2)
+```
+
+Run again.
+
+```{r}
+str(results)
+```
+
+```{r}
+skewness(results$arch1)
+skewness(results$prog1) 
+skewness(results$arch2)
+skewness(results$prog2)
+```
+
+The subjects arch 1, prog 1, and prog 2 tend to be left-skewed. This implies that their scores tend to be concentrated toward the higher end (or right side) of the distribution, with some lower scores extending the tail toward the left.
+
+Meanwhile prog 2 tends to be concentrated towards the lower end, with higher scores extends to the tail to the right.
+
+## This is the function for the APPROXIMATE Skew formula by Pearson
+
+```{r}
+skew <- function(x){
+  3 * (mean(x, na.rm = TRUE) - median(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)
+}
+```
+
+```{r}
+skew(results$arch1)
+skew(results$prog1) 
+skew(results$arch2)
+skew(results$prog2)
+```
+
+Pearson’s equation yielded the same sign of the coefficients for all four examination subjects as the exact skewness formula. Approximation helped us identify if a subject tends to be left skewed or right skewed.
+
+However the values are not identical and are not as accurate as the exact formula, but they do give similar interpretations and not have much of a difference. Therefore, Pearson's formula can be considered a reasonable approximation for describing the general direction of skewness in these data.
+
+# 2
+
+## 2a. Stem-and-leaf displays
+
+### Female Students' Scores
+
+```{r}
+females <- c(57, 59, 78, 79, 60, 65, 68, 71, 75, 48, 51, 55, 56,
+             41, 43, 44, 75, 78, 80, 81, 83, 83, 85)
+
+stem(females)
+```
+
+### Male Students' Scores
+
+```{r}
+males <- c(48, 49, 49, 30, 30, 31, 32, 35, 37, 41, 46, 42, 51, 53, 56,
+           42, 44, 50, 51, 65, 67, 51, 56, 58, 64, 64, 75)
+
+stem(males)
+```
+
+Through the stem-and-leaf displays reveal that female students outperformed male students in java exam scores. The former scores were noticeably in the higher score ranges, while the latter scores were clustered in the lower and centre score ranges.
+
+The advantage of stem-and-leaf displays is that they keep each of the raw source values clear while also illustrating the shape of a data set. This differs from traditional histograms, which groups data into bins and display total counts, thus losing the individual detail.
+
+## 2b. Boxplot
+
+```{r echo=TRUE}
+boxplot(females, males,
+        names = c("Female", "Male"),
+        main = "Java Exam Scores",
+        ylab = "Score",
+        col = c("lightpink", "lightgreen"))
+```
+
+The boxplot exhibits an evident difference between male students' and female students' exam scores in the Java exam. The former have a lower median, meaning that their scores are generally lower, while the latter extend further toward the upper end of the scale. In general, the boxplot indicates that the female students outperformed the male students in the Java programming exam.

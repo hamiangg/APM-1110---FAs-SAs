@@ -1,0 +1,87 @@
+---
+title: "APM 1110: FA 3"
+author: "2025041131 <- Manalaysay"
+output: pdf_document
+---
+
+https://github.com/hamiangg/APM-1110---FAs-SAs
+
+## 5.
+A geospatial analysis system has four sensors supplying images.The 
+percentage of images supplied by each sensor and the percentage of 
+images relevant to a query are shown in the following table.
+
+# Percentage of images supplied by each sensor
+```{r}
+s1 <- 15
+s2 <- 20
+s3 <- 25
+s4 <- 40
+```
+# Percentage of relevant images by each sensor
+```{r}
+r1 <- 50
+r2 <- 60
+r3 <- 80
+r4 <- 85
+```
+# Overall percentage of relevant images
+```{r}
+overall_r <- (.15 * .50) + (.20 * .60) +
+             (.25 * .80) + (.40 * .85)
+```
+```{r}
+ overall_r
+ overall_r * 100
+```
+0.735 or 73.5% is the overall percentage of an image being relevant 
+to the query, supplied by the four sensors.
+
+## 6.
+A fair coin is tossed twice.
+
+# Probabilities of an event 
+```{r}
+P_E1 <- 2/4
+P_E2 <- 2/4
+P_E3 <- 2/4
+```
+```{r}
+P_E1
+P_E2
+P_E3
+```
+# Testing pairwise independence
+```{r}
+P_E1_E2 <- 1/4
+P_E1 * P_E2
+```
+```{r}
+P_E1_E2
+```
+```{r}
+P_E1_E3 <- 1/4
+P_E1 * P_E3
+```
+```{r}
+P_E1_E3
+```
+```{r}
+P_E2_E3 <- 1/4
+P_E2 * P_E3
+```
+```{r}
+P_E2_E3
+```
+The three events are pairwise independent, as the probability of their 
+intersection is 0.25 for each pair, while also getting 0.25 as the product
+of their individual probabilities.
+# Testing for mutual independence
+```{R}
+P_E123 <- 1/4
+P_E1 * P_E2 * P_E3
+```
+```{r}
+P_E123
+```
+Since 0.25 is not equal to 0.125, the three events are not mutually independent.
